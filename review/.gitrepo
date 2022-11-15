@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:HadrienMP/hadrienmp-elm-review-style.git
 	branch = main
-	commit = 9ca62b14bac1b5f5b7cac5c88d9668de1d09206a
-	parent = aee3217d72537d1574b831b48d91741257c04b80
+	commit = 451716413c0bad3e26064929adc7b32a830d4229
+	parent = 3ff46bc87175b4fcab2f7357cb50d95875584a6f
 	method = merge
 	cmdver = 0.4.5
