@@ -1,16 +1,12 @@
 module Front.Pages.Inside exposing (..)
 
-import Front.View exposing (View)
-import Lib.AutoDict exposing (AutoDict)
-import Model exposing (Mobber, Room)
 import Front.UI.Typography
+import Front.View exposing (View)
+import Types
 
 
 type alias Model =
-    { room : Room
-    , mobbers : AutoDict String Mobber
-    , me : Mobber
-    }
+    Types.InsideModel
 
 
 init : Model -> ( Model, Cmd Msg )
@@ -18,15 +14,13 @@ init model =
     ( model, Cmd.none )
 
 
-type Msg
-    = Noop
+type alias Msg =
+    Types.InsideMsg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        Noop ->
-            ( model, Cmd.none )
+    ( model, Cmd.none )
 
 
 view : Model -> View Msg

@@ -1,7 +1,8 @@
 module Backend exposing (..)
 
 import Lamdera exposing (ClientId, SessionId, sendToFrontend)
-import Lib.AutoDict as AutoDict
+import Mobber
+import Room
 import Types exposing (..)
 
 
@@ -26,7 +27,7 @@ app =
 
 init : ( Model, Cmd BackendMsg )
 init =
-    ( AutoDict.empty (.room >> .id)
+    ( Room.emptyCollection
     , Cmd.none
     )
 
@@ -41,17 +42,30 @@ update msg model =
 updateFromFrontend : SessionId -> ClientId -> ToBackend -> Model -> ( Model, Cmd BackendMsg )
 updateFromFrontend _ clientId msg model =
     case msg of
-        Enter request ->
-            case AutoDict.get request.roomId model of
-                Nothing ->
-                    ( model
-                    , sendToFrontend clientId UnknownRoom
-                    )
+        CreateRoom request ->
+            let
+                roomData =
+                    { room = request.room
+                    , mobbers =
+                        Mobber.emptyCollection
+                            |> Mobber.add request.mobber
+                    }
+            in
+            ( Room.add roomData model
+            , sendToFrontend clientId (EntryGranted roomData request.mobber)
+            )
 
-                Just roomData ->
-                    ( AutoDict.replace
-                        request.roomId
-                        { roomData | mobbers = AutoDict.insert request.mobber roomData.mobbers }
-                        model
-                    , sendToFrontend clientId (EntryGranted roomData request.mobber)
-                    )
+
+
+-- case Room.get request.room model of
+--     Nothing ->
+--         ( model
+--         , sendToFrontend clientId UnknownRoom
+--         )
+--     Just roomData ->
+--         ( Room.replace
+--             request.room
+--             { roomData | mobbers = Mobber.add request.mobber roomData.mobbers }
+--             model
+--         , sendToFrontend clientId (EntryGranted roomData request.mobber)
+--         )
