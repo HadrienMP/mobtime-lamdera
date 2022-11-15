@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:HadrienMP/hadrienmp-elm-review-style.git
+	branch = main
+	commit = 9ca62b14bac1b5f5b7cac5c88d9668de1d09206a
+	parent = aee3217d72537d1574b831b48d91741257c04b80
+	method = merge
+	cmdver = 0.4.5
