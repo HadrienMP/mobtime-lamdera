@@ -13,7 +13,6 @@
       {
         devShell = pkgs.mkShell {
           packages = with pkgs; [
-            git-subrepo
             elmPackages.elm
             elmPackages.elm-format
             elmPackages.elm-review
