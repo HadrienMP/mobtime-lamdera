@@ -1,4 +1,4 @@
-module Types exposing (BackendModel, BackendMsg(..), EntryRequest, EntryResponse(..), FrontendModel, FrontendMsg(..), InsideModel, InsideMsg, Mobber, OutsideModel, OutsideMsg(..), Page(..), Room, RoomData, ToBackend(..), ToFrontend(..))
+module Types exposing (BackendModel, BackendMsg(..), EntryRequest, FrontendModel, FrontendMsg(..), InsideModel, InsideMsg, Mobber, OutsideModel, OutsideMsg(..), Page(..), Room, RoomData, ToBackend(..), ToFrontend(..))
 
 import Browser exposing (UrlRequest)
 import Browser.Navigation exposing (Key)
