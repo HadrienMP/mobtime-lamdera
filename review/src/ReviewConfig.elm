@@ -67,7 +67,7 @@ config =
                 |> NoInconsistentAliases.noMissingAliases
                 |> NoInconsistentAliases.rule
            , NoModuleOnExposedNames.rule
-           ]
+           ] |> List.map (Review.Rule.ignoreErrorsForDirectories ["src/Evergreen"])
     )
 
 
