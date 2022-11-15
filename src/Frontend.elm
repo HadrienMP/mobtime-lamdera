@@ -3,7 +3,6 @@ module Frontend exposing (..)
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
 import Front.Main
-import Html.Events
 import Html.Styled as Html
 import Lamdera
 import Types exposing (..)
@@ -21,13 +20,13 @@ app =
         , onUrlChange = UrlChanged
         , update = update
         , updateFromBackend = updateFromBackend
-        , subscriptions = \m -> Sub.none
+        , subscriptions = \_ -> Sub.none
         , view = view
         }
 
 
 init : Url.Url -> Nav.Key -> ( Model, Cmd FrontendMsg )
-init url key =
+init _ key =
     let
         ( front, command ) =
             Front.Main.init
@@ -54,7 +53,7 @@ update msg model =
                     , Nav.load url
                     )
 
-        UrlChanged url ->
+        UrlChanged _ ->
             ( model, Cmd.none )
 
         NoOpFrontendMsg ->
@@ -69,9 +68,10 @@ update msg model =
 
 updateFromBackend : ToFrontend -> Model -> ( Model, Cmd FrontendMsg )
 updateFromBackend msg model =
-    case msg of
-        NoOpToFrontend ->
-            ( model, Cmd.none )
+    Front.Main.updateFromBackend msg model.sub
+        |> Tuple.mapBoth
+            (\updated -> { model | sub = updated })
+            (Cmd.map FrontMsg)
 
 
 view : Model -> Browser.Document FrontendMsg

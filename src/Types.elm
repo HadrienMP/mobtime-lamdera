@@ -2,18 +2,19 @@ module Types exposing (..)
 
 import Browser exposing (UrlRequest)
 import Browser.Navigation exposing (Key)
-import Front.Main
+import Lib.AutoDict exposing (AutoDict)
+import Model exposing (Mobber, RoomData)
 import Url exposing (Url)
+import Front.Types
+
+
+
+-- Frontend
 
 
 type alias FrontendModel =
     { key : Key
-    , sub : Front.Main.Model
-    }
-
-
-type alias BackendModel =
-    { message : String
+    , sub : Front.Types.Model
     }
 
 
@@ -21,11 +22,19 @@ type FrontendMsg
     = UrlClicked UrlRequest
     | UrlChanged Url
     | NoOpFrontendMsg
-    | FrontMsg Front.Main.Msg
+    | FrontMsg Front.Types.Msg
 
 
 type ToBackend
-    = NoOpToBackend
+    = Enter EntryRequest
+
+
+
+-- Backend
+
+
+type alias BackendModel =
+    AutoDict String RoomData
 
 
 type BackendMsg
@@ -33,4 +42,14 @@ type BackendMsg
 
 
 type ToFrontend
-    = NoOpToFrontend
+    = UnknownRoom
+    | EntryGranted RoomData Mobber
+
+
+type alias EntryRequest =
+    { roomId : String, mobber : Mobber }
+
+
+type EntryResponse
+    = Confirmed RoomData
+    | NotFound

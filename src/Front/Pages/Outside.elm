@@ -1,11 +1,7 @@
-module Front.Outside exposing (..)
+module Front.Pages.Outside exposing (..)
 
-import Css
 import Front.UI.Form
 import Front.View exposing (View)
-import Html.Styled as Html
-import Html.Styled.Attributes as Attr
-import Html.Styled.Events as Events
 
 
 type alias Model =

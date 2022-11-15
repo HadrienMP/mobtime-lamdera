@@ -1,10 +1,5 @@
 {
-    "elmLS.elmPath": "/usr/local/bin/lamdera",
     "files.exclude": {
-        ".direnv": true,
         "elm-stuff": true
     },
-    "elmLS.elmReviewDiagnostics": "error",
-    "elmLS.trace.server": "off",
-    "elmLS.elmReviewPath": ""
 }

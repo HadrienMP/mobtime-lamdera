@@ -1,31 +1,65 @@
 module Front.Main exposing (..)
 
-import Front.Outside
+import Front.Pages.Inside
+import Front.Pages.Outside
+import Front.Types exposing (..)
 import Front.View exposing (View)
-
-
-type Model
-    = Outside Front.Outside.Model
+import Types exposing (ToFrontend(..))
 
 
 init : ( Model, Cmd Msg )
 init =
-    Front.Outside.init |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
-
-
-type Msg
-    = OutsideMsg Front.Outside.Msg
+    let
+        ( outside, command ) =
+            Front.Pages.Outside.init
+    in
+    ( { page = Outside outside, message = Nothing }
+    , Cmd.map OutsideMsg command
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case ( msg, model ) of
+    case ( msg, model.page ) of
         ( OutsideMsg subMsg, Outside subModel ) ->
-            Front.Outside.update subMsg subModel |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
+            Front.Pages.Outside.update subMsg subModel
+                |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
+                |> withPage model
+
+        ( InsideMsg subMsg, Inside subModel ) ->
+            Front.Pages.Inside.update subMsg subModel
+                |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
+                |> withPage model
+
+        _ ->
+            ( model, Cmd.none )
+
+
+withPage : Model -> ( Page, Cmd Msg ) -> ( Model, Cmd Msg )
+withPage model ( page, command ) =
+    ( { model | page = page }, command )
+
+
+updateFromBackend : ToFrontend -> Model -> ( Model, Cmd Msg )
+updateFromBackend msg model =
+    case ( msg, model.page ) of
+        ( UnknownRoom, _ ) ->
+            ( { model | message = Just "Unknown room" }, Cmd.none )
+
+        ( EntryGranted roomData mobber, Outside _ ) ->
+            Front.Pages.Inside.init { room = roomData.room, mobbers = roomData.mobbers, me = mobber }
+                |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
+                |> withPage model
+
+        _ ->
+            ( model, Cmd.none )
 
 
 view : Model -> View Msg
 view model =
-    case model of
+    case model.page of
         Outside outside ->
-            Front.Outside.view outside |> Front.View.map OutsideMsg
+            Front.Pages.Outside.view outside |> Front.View.map OutsideMsg
+
+        Inside inside ->
+            Front.Pages.Inside.view inside |> Front.View.map InsideMsg
