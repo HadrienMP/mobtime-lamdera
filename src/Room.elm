@@ -1,4 +1,4 @@
-module Room exposing (..)
+module Room exposing (Collection(..), Internal, Room, RoomData, add, emptyCollection)
 
 import Dict exposing (Dict)
 import Mobber
@@ -34,18 +34,6 @@ open rooms =
     case rooms of
         Internal internal ->
             internal
-
-
-get : String -> Collection -> Maybe RoomData
-get id =
-    open >> Dict.get id
-
-
-replace : String -> RoomData -> Collection -> Collection
-replace id value =
-    open
-        >> Dict.update id (always <| Just value)
-        >> Internal
 
 
 add : RoomData -> Collection -> Collection

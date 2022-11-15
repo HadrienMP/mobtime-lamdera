@@ -1,4 +1,4 @@
-module Mobber exposing (..)
+module Mobber exposing (Collection(..), Internal, Mobber, add, emptyCollection)
 
 import Dict exposing (Dict)
 

@@ -1,9 +1,9 @@
-module Backend exposing (..)
+module Backend exposing (Model, app)
 
 import Lamdera exposing (ClientId, SessionId, sendToFrontend)
 import Mobber
 import Room
-import Types exposing (..)
+import Types exposing (BackendModel, BackendMsg(..), ToBackend(..), ToFrontend(..))
 
 
 type alias Model =
@@ -54,18 +54,3 @@ updateFromFrontend _ clientId msg model =
             ( Room.add roomData model
             , sendToFrontend clientId (EntryGranted roomData request.mobber)
             )
-
-
-
--- case Room.get request.room model of
---     Nothing ->
---         ( model
---         , sendToFrontend clientId UnknownRoom
---         )
---     Just roomData ->
---         ( Room.replace
---             request.room
---             { roomData | mobbers = Mobber.add request.mobber roomData.mobbers }
---             model
---         , sendToFrontend clientId (EntryGranted roomData request.mobber)
---         )

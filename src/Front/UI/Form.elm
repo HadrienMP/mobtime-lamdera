@@ -1,4 +1,4 @@
-module Front.UI.Form exposing (..)
+module Front.UI.Form exposing (form, text)
 
 import Css
 import Front.UI.Button as Button
@@ -12,13 +12,13 @@ form description children =
     Html.form
         (description.onSubmit
             |> Maybe.map Events.onSubmit
-            |> Maybe.map List.singleton 
+            |> Maybe.map List.singleton
             |> Maybe.withDefault []
         )
         (children
             ++ (case description.submit of
                     Just label ->
-                        [ Button.text { onClick = description.onSubmit, label = label } ]
+                        [ Button.button <| Button.Text { onClick = description.onSubmit, label = label } ]
 
                     Nothing ->
                         []

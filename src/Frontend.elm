@@ -1,4 +1,4 @@
-module Frontend exposing (..)
+module Frontend exposing (Model, Msg, app)
 
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
@@ -7,7 +7,7 @@ import Front.Pages.Outside
 import Front.View
 import Html.Styled as Html
 import Lamdera
-import Types exposing (..)
+import Types exposing (FrontendModel, FrontendMsg(..), Page(..), ToFrontend(..))
 import Url
 
 
@@ -16,9 +16,21 @@ type alias Model =
 
 
 type alias Msg =
-    Types.FrontendMsg
+    FrontendMsg
 
 
+app :
+    { init :
+        Lamdera.Url
+        -> Lamdera.Key
+        -> ( Model, Cmd FrontendMsg )
+    , view : Model -> Browser.Document FrontendMsg
+    , update : FrontendMsg -> Model -> ( Model, Cmd FrontendMsg )
+    , updateFromBackend : ToFrontend -> Model -> ( Model, Cmd FrontendMsg )
+    , subscriptions : Model -> Sub FrontendMsg
+    , onUrlRequest : UrlRequest -> FrontendMsg
+    , onUrlChange : Url.Url -> FrontendMsg
+    }
 app =
     Lamdera.frontend
         { init = init

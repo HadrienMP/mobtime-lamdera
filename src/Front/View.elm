@@ -1,4 +1,4 @@
-module Front.View exposing (..)
+module Front.View exposing (View, map)
 
 import Html.Styled as Html
 

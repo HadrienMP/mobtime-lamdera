@@ -1,8 +1,6 @@
-module Front.UI.Button exposing (..)
+module Front.UI.Button exposing (Button(..), TextButton, button)
 
-import Css
 import Html.Styled as Html
-import Html.Styled.Attributes as Attr
 import Html.Styled.Events as Events
 
 

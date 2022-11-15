@@ -1,4 +1,4 @@
-module Front.Pages.Inside exposing (..)
+module Front.Pages.Inside exposing (Model, Msg, init, update, view)
 
 import Front.UI.Typography
 import Front.View exposing (View)
@@ -19,7 +19,7 @@ type alias Msg =
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update _ model =
     ( model, Cmd.none )
 
 

@@ -1,4 +1,4 @@
-module Front.Pages.Outside exposing (..)
+module Front.Pages.Outside exposing (Model, Msg, init, update, view)
 
 import Front.UI.Form
 import Front.View exposing (View)
@@ -11,7 +11,7 @@ type alias Model =
 
 
 type alias Msg =
-    Types.OutsideMsg
+    OutsideMsg
 
 
 init : ( Model, Cmd Msg )

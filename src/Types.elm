@@ -1,4 +1,4 @@
-module Types exposing (..)
+module Types exposing (BackendModel, BackendMsg(..), EntryRequest, EntryResponse(..), FrontendModel, FrontendMsg(..), InsideModel, InsideMsg, Mobber, OutsideModel, OutsideMsg(..), Page(..), Room, RoomData, ToBackend(..), ToFrontend(..))
 
 import Browser exposing (UrlRequest)
 import Browser.Navigation exposing (Key)
@@ -92,8 +92,3 @@ type ToFrontend
 
 type alias EntryRequest =
     { room : Room, mobber : Mobber }
-
-
-type EntryResponse
-    = Confirmed RoomData
-    | NotFound
