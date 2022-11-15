@@ -1,21 +1,13 @@
-module Front.Pages.Inside exposing (Model, Msg, init, update, view)
+module Front.Pages.Inside.Inside exposing (init, update, view)
 
+import Front.Pages.Inside.Types exposing (Model, Msg)
 import Front.UI.Typography
 import Front.View exposing (View)
-import Types
-
-
-type alias Model =
-    Types.InsideModel
 
 
 init : Model -> ( Model, Cmd Msg )
 init model =
     ( model, Cmd.none )
-
-
-type alias Msg =
-    Types.InsideMsg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

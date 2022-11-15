@@ -1,17 +1,10 @@
-module Front.Pages.Outside exposing (Model, Msg, init, update, view)
+module Front.Pages.Outside.Outside exposing (init, update, view)
 
+import Front.Pages.Outside.Types exposing (Model, Msg(..))
 import Front.UI.Form
 import Front.View exposing (View)
 import Lamdera exposing (sendToBackend)
-import Types exposing (OutsideMsg(..), ToBackend(..))
-
-
-type alias Model =
-    Types.OutsideModel
-
-
-type alias Msg =
-    OutsideMsg
+import Types exposing (ToBackend(..))
 
 
 init : ( Model, Cmd Msg )
