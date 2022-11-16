@@ -1,8 +1,9 @@
 module Backend exposing (Model, app)
 
-import Lamdera exposing (ClientId, SessionId, sendToFrontend)
 import Domain.Mobber.Collection as Mobbers
 import Domain.Room.Collection as Rooms
+import Lamdera exposing (ClientId, SessionId, sendToFrontend)
+import Lib.LamderaExtra exposing (BackendApp)
 import Types exposing (BackendModel, BackendMsg(..), ToBackend(..), ToFrontend(..))
 
 
@@ -10,12 +11,7 @@ type alias Model =
     BackendModel
 
 
-app :
-    { init : ( Model, Cmd BackendMsg )
-    , update : BackendMsg -> Model -> ( Model, Cmd BackendMsg )
-    , updateFromFrontend : SessionId -> ClientId -> ToBackend -> Model -> ( Model, Cmd BackendMsg )
-    , subscriptions : Model -> Sub BackendMsg
-    }
+app : BackendApp Model BackendMsg ToBackend
 app =
     Lamdera.backend
         { init = init

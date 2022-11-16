@@ -1,4 +1,4 @@
-module Lib.LamderaExtra exposing (FrontendApp)
+module Lib.LamderaExtra exposing (FrontendApp, BackendApp)
 
 import Browser
 import Lamdera
@@ -16,4 +16,12 @@ type alias FrontendApp model msg toFrontendMsg =
     , subscriptions : model -> Sub msg
     , onUrlRequest : Lamdera.UrlRequest -> msg
     , onUrlChange : Url.Url -> msg
+    }
+
+
+type alias BackendApp model msg toBackendMsg =
+    { init : ( model, Cmd msg )
+    , update : msg -> model -> ( model, Cmd msg )
+    , updateFromFrontend : Lamdera.SessionId -> Lamdera.ClientId -> toBackendMsg -> model -> ( model, Cmd msg )
+    , subscriptions : model -> Sub msg
     }
