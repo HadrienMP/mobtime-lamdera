@@ -1,7 +1,7 @@
 module Frontend.Pages.Inside.Types exposing (Model, Msg)
 
-import Domain.Mobber as Mobber
-import Domain.Mobbers as Mobbers
+import Domain.Mobber.Type as Mobber
+import Domain.Mobber.Collection as Mobbers
 import Domain.Room exposing (Room)
 
 

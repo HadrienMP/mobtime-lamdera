@@ -6,7 +6,7 @@ import Frontend.View exposing (View)
 import Lamdera exposing (sendToBackend)
 import Types exposing (ToBackend(..))
 import Domain.RoomId exposing (RoomId(..))
-import Domain.MobberId exposing (MobberId(..))
+import Domain.Mobber.Id exposing (MobberId(..))
 
 
 init : ( Model, Cmd Msg )

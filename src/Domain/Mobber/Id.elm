@@ -1,4 +1,4 @@
-module Domain.MobberId exposing (MobberId(..), open)
+module Domain.Mobber.Id exposing (MobberId(..), open)
 
 
 type MobberId

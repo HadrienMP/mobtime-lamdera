@@ -3,7 +3,7 @@ module Domain.Room exposing
     , RoomData
     )
 
-import Domain.Mobbers as Mobbers
+import Domain.Mobber.Collection as Mobbers
 import Domain.RoomId exposing (RoomId)
 
 

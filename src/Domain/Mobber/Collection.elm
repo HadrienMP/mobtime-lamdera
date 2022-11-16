@@ -1,8 +1,8 @@
-module Domain.Mobbers exposing (Collection(..), Internal, add, empty)
+module Domain.Mobber.Collection exposing (Collection(..), Internal, add, empty)
 
 import Dict exposing (Dict)
-import Domain.Mobber exposing (Mobber)
-import Domain.MobberId as MobberId
+import Domain.Mobber.Type exposing (Mobber)
+import Domain.Mobber.Id as MobberId
 
 
 type alias Internal =
