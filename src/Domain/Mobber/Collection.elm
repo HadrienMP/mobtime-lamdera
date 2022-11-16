@@ -1,4 +1,4 @@
-module Domain.Mobber.Collection exposing (Collection(..), Internal, add, empty)
+module Domain.Mobber.Collection exposing (Collection(..), Internal, add, empty, get)
 
 import Dict exposing (Dict)
 import Domain.Mobber.Id as MobberId
@@ -24,7 +24,15 @@ empty =
 
 
 add : Mobber -> Collection -> Collection
-add mobber mobbers =
-    open mobbers
-        |> Dict.insert (MobberId.open mobber.id) mobber
-        |> Internal
+add value (Internal collection) =
+    Internal <|
+        if Dict.member (MobberId.open value.id) collection then
+            collection
+
+        else
+            Dict.insert (MobberId.open value.id) value collection
+
+
+get : MobberId.MobberId -> Collection -> Maybe Mobber
+get id =
+    open >> Dict.get (MobberId.open id)
