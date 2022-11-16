@@ -1,4 +1,4 @@
-module Domain.Rooms exposing (..)
+module Domain.Rooms exposing (Collection(..), Internal, add, emptyCollection)
 
 import Dict exposing (Dict)
 import Domain.Room exposing (RoomData)

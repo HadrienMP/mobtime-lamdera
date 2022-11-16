@@ -1,4 +1,4 @@
-module Domain.Mobbers exposing (..)
+module Domain.Mobbers exposing (Collection(..), Internal, add, empty)
 
 import Dict exposing (Dict)
 import Domain.Mobber exposing (Mobber)
