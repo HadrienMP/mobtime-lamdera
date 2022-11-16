@@ -1,4 +1,4 @@
-module Domain.RoomId exposing (RoomId(..), open)
+module Domain.Room.RoomId exposing (RoomId(..), open)
 
 
 type RoomId

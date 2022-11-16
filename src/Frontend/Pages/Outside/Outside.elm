@@ -5,7 +5,7 @@ import Frontend.UI.Form
 import Frontend.View exposing (View)
 import Lamdera exposing (sendToBackend)
 import Types exposing (ToBackend(..))
-import Domain.RoomId exposing (RoomId(..))
+import Domain.Room.RoomId exposing (RoomId(..))
 import Domain.Mobber.Id exposing (MobberId(..))
 
 

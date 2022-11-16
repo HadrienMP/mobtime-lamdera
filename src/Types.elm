@@ -8,19 +8,18 @@ module Types exposing
     , ToFrontend(..)
     )
 
-import Frontend.Types
-import Domain.Room as Room
-import Domain.Rooms as Rooms
 import Domain.Mobber.Type exposing (Mobber)
-import Domain.Room exposing (Room)
+import Domain.Room.Room as Room exposing (Room)
+import Domain.Room.Rooms as Rooms
+import Frontend.Types
 
 
 type alias FrontendModel =
     Frontend.Types.Model
 
 
-type alias FrontendMsg
-    = Frontend.Types.Msg
+type alias FrontendMsg =
+    Frontend.Types.Msg
 
 
 type ToBackend
