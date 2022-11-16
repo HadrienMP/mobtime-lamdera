@@ -9,8 +9,8 @@ module Types exposing
     )
 
 import Domain.Mobber.Type exposing (Mobber)
-import Domain.Room.Type as Room exposing (Room)
 import Domain.Room.Collection as Rooms
+import Domain.Room.Type as Room exposing (Room)
 import Frontend.Types
 
 
