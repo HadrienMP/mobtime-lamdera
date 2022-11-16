@@ -1,6 +1,6 @@
 module Frontend.Routes exposing (Route(..))
 
-import Domain.Room.RoomId exposing (RoomId)
+import Domain.Room.Id exposing (RoomId)
 
 
 type Route

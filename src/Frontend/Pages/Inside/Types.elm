@@ -2,7 +2,7 @@ module Frontend.Pages.Inside.Types exposing (Model, Msg)
 
 import Domain.Mobber.Type as Mobber
 import Domain.Mobber.Collection as Mobbers
-import Domain.Room.Room exposing (Room)
+import Domain.Room.Type exposing (Room)
 
 
 type alias Model =

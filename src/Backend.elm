@@ -2,7 +2,7 @@ module Backend exposing (Model, app)
 
 import Lamdera exposing (ClientId, SessionId, sendToFrontend)
 import Domain.Mobber.Collection as Mobbers
-import Domain.Room.Rooms as Rooms
+import Domain.Room.Collection as Rooms
 import Types exposing (BackendModel, BackendMsg(..), ToBackend(..), ToFrontend(..))
 
 

@@ -1,10 +1,10 @@
-module Domain.Room.Room exposing
+module Domain.Room.Type exposing
     ( Room
     , RoomData
     )
 
 import Domain.Mobber.Collection as Mobbers
-import Domain.Room.RoomId exposing (RoomId)
+import Domain.Room.Id exposing (RoomId)
 
 
 type alias Room =

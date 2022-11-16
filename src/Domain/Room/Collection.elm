@@ -1,8 +1,8 @@
-module Domain.Room.Rooms exposing (Collection(..), Internal, add, emptyCollection)
+module Domain.Room.Collection exposing (Collection(..), Internal, add, emptyCollection)
 
 import Dict exposing (Dict)
-import Domain.Room.Room exposing (RoomData)
-import Domain.Room.RoomId as RoomId
+import Domain.Room.Type exposing (RoomData)
+import Domain.Room.Id as RoomId
 
 
 type alias Internal =
