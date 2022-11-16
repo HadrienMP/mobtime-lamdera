@@ -8,18 +8,18 @@ module Types exposing
     , ToFrontend(..)
     )
 
-import Front.Types
+import Frontend.Types
 import Room
 import Mobber exposing (Mobber)
 import Room exposing (Room)
 
 
 type alias FrontendModel =
-    Front.Types.Model
+    Frontend.Types.Model
 
 
 type alias FrontendMsg
-    = Front.Types.Msg
+    = Frontend.Types.Msg
 
 
 type ToBackend

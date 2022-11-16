@@ -1,4 +1,4 @@
-module Front.Pages.Inside.Types exposing (Model, Msg)
+module Frontend.Pages.Inside.Types exposing (Model, Msg)
 
 import Mobber
 import Room exposing (Room)

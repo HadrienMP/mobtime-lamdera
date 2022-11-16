@@ -1,4 +1,4 @@
-module Front.UI.Typography exposing (h2)
+module Frontend.UI.Typography exposing (h2)
 
 import Html.Styled as Html
 

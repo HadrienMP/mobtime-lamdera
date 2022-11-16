@@ -1,8 +1,8 @@
-module Front.Pages.Outside.Outside exposing (init, update, view)
+module Frontend.Pages.Outside.Outside exposing (init, update, view)
 
-import Front.Pages.Outside.Types exposing (Model, Msg(..))
-import Front.UI.Form
-import Front.View exposing (View)
+import Frontend.Pages.Outside.Types exposing (Model, Msg(..))
+import Frontend.UI.Form
+import Frontend.View exposing (View)
 import Lamdera exposing (sendToBackend)
 import Types exposing (ToBackend(..))
 
@@ -35,14 +35,14 @@ view : Model -> View Msg
 view model =
     { title = Just "Welcome"
     , body =
-        Front.UI.Form.form { onSubmit = Just EnterClicked, cancel = Nothing, submit = Just "Enter" }
-            [ Front.UI.Form.text
+        Frontend.UI.Form.form { onSubmit = Just EnterClicked, cancel = Nothing, submit = Just "Enter" }
+            [ Frontend.UI.Form.text
                 { onInput = RoomNameChanged
                 , label = "Room"
                 , name = "room"
                 , value = model.room
                 }
-            , Front.UI.Form.text
+            , Frontend.UI.Form.text
                 { onInput = MobberNameChanged
                 , label = "Nickname"
                 , name = "mobber"

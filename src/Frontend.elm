@@ -2,8 +2,8 @@ module Frontend exposing (Model, app)
 
 import Browser exposing (UrlRequest)
 import Browser.Navigation as Nav
-import Front.Main
-import Front.Types exposing (Msg(..))
+import Frontend.Main
+import Frontend.Types exposing (Msg(..))
 import Lamdera
 import Types exposing (FrontendModel, FrontendMsg, ToFrontend)
 import Url
@@ -39,19 +39,19 @@ app =
 
 init : Url.Url -> Nav.Key -> ( Model, Cmd FrontendMsg )
 init url key =
-    Front.Main.init url key
+    Frontend.Main.init url key
 
 
 update : FrontendMsg -> Model -> ( Model, Cmd FrontendMsg )
 update msg model =
-    Front.Main.update msg model
+    Frontend.Main.update msg model
 
 
 updateFromBackend : ToFrontend -> Model -> ( Model, Cmd FrontendMsg )
 updateFromBackend msg model =
-    Front.Main.updateFromBackend msg model
+    Frontend.Main.updateFromBackend msg model
 
 
 view : Model -> Browser.Document FrontendMsg
 view model =
-    Front.Main.view model
+    Frontend.Main.view model

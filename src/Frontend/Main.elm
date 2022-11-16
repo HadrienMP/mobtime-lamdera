@@ -1,11 +1,11 @@
-module Front.Main exposing (init, update, updateFromBackend, view)
+module Frontend.Main exposing (init, update, updateFromBackend, view)
 
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
-import Front.Pages.Inside.Inside
-import Front.Pages.Outside.Outside
-import Front.Types exposing (Model, Msg(..), Page(..))
-import Front.View
+import Frontend.Pages.Inside.Inside
+import Frontend.Pages.Outside.Outside
+import Frontend.Types exposing (Model, Msg(..), Page(..))
+import Frontend.View
 import Html.Styled as Html
 import Types exposing (ToFrontend(..))
 import Url
@@ -15,7 +15,7 @@ init : Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ key =
     let
         ( outside, command ) =
-            Front.Pages.Outside.Outside.init
+            Frontend.Pages.Outside.Outside.init
     in
     ( { key = key
       , page = Outside outside
@@ -44,12 +44,12 @@ update msg model =
             ( model, Cmd.none )
 
         ( OutsideMsg subMsg, Outside subModel ) ->
-            Front.Pages.Outside.Outside.update subMsg subModel
+            Frontend.Pages.Outside.Outside.update subMsg subModel
                 |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
                 |> withPage model
 
         ( InsideMsg subMsg, Inside subModel ) ->
-            Front.Pages.Inside.Inside.update subMsg subModel
+            Frontend.Pages.Inside.Inside.update subMsg subModel
                 |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
                 |> withPage model
 
@@ -69,7 +69,7 @@ updateFromBackend msg model =
             ( { model | message = Just "Unknown room" }, Cmd.none )
 
         ( EntryGranted roomData mobber, Outside _ ) ->
-            Front.Pages.Inside.Inside.init { room = roomData.room, mobbers = roomData.mobbers, me = mobber }
+            Frontend.Pages.Inside.Inside.init { room = roomData.room, mobbers = roomData.mobbers, me = mobber }
                 |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
                 |> withPage model
 
@@ -83,10 +83,10 @@ view model =
         { title, body } =
             case model.page of
                 Outside outside ->
-                    Front.Pages.Outside.Outside.view outside |> Front.View.map OutsideMsg
+                    Frontend.Pages.Outside.Outside.view outside |> Frontend.View.map OutsideMsg
 
                 Inside inside ->
-                    Front.Pages.Inside.Inside.view inside |> Front.View.map InsideMsg
+                    Frontend.Pages.Inside.Inside.view inside |> Frontend.View.map InsideMsg
     in
     { title = (title |> Maybe.map (\it -> it ++ " | ") |> Maybe.withDefault " ") ++ "Mob Time"
     , body =

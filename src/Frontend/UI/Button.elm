@@ -1,4 +1,4 @@
-module Front.UI.Button exposing (Button(..), TextButton, button)
+module Frontend.UI.Button exposing (Button(..), TextButton, button)
 
 import Html.Styled as Html
 import Html.Styled.Events as Events

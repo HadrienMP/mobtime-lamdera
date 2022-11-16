@@ -1,7 +1,7 @@
-module Front.UI.Form exposing (form, text)
+module Frontend.UI.Form exposing (form, text)
 
 import Css
-import Front.UI.Button as Button
+import Frontend.UI.Button as Button
 import Html.Styled as Html
 import Html.Styled.Attributes as Attr
 import Html.Styled.Events as Events

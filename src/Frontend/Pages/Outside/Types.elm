@@ -1,4 +1,4 @@
-module Front.Pages.Outside.Types exposing (Model, Msg(..))
+module Frontend.Pages.Outside.Types exposing (Model, Msg(..))
 
 
 type alias Model =

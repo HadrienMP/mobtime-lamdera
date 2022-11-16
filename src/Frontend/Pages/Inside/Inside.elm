@@ -1,8 +1,8 @@
-module Front.Pages.Inside.Inside exposing (init, update, view)
+module Frontend.Pages.Inside.Inside exposing (init, update, view)
 
-import Front.Pages.Inside.Types exposing (Model, Msg)
-import Front.UI.Typography
-import Front.View exposing (View)
+import Frontend.Pages.Inside.Types exposing (Model, Msg)
+import Frontend.UI.Typography
+import Frontend.View exposing (View)
 
 
 init : Model -> ( Model, Cmd Msg )
@@ -19,5 +19,5 @@ view : Model -> View Msg
 view model =
     { title = Just <| model.room.name
     , body =
-        Front.UI.Typography.h2 model.room.name
+        Frontend.UI.Typography.h2 model.room.name
     }
