@@ -1,4 +1,4 @@
-module Front.Front exposing (init, update, updateFromBackend, view)
+module Front.Main exposing (init, update, updateFromBackend, view)
 
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
