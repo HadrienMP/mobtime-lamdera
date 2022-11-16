@@ -1,8 +1,8 @@
 module Domain.Mobber.Collection exposing (Collection(..), Internal, add, empty)
 
 import Dict exposing (Dict)
-import Domain.Mobber.Type exposing (Mobber)
 import Domain.Mobber.Id as MobberId
+import Domain.Mobber.Type exposing (Mobber)
 
 
 type alias Internal =
@@ -14,10 +14,8 @@ type Collection
 
 
 open : Collection -> Internal
-open mobbers =
-    case mobbers of
-        Internal internal ->
-            internal
+open (Internal mobbers) =
+    mobbers
 
 
 empty : Collection

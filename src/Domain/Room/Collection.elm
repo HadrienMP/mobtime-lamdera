@@ -1,8 +1,8 @@
 module Domain.Room.Collection exposing (Collection(..), Internal, add, emptyCollection)
 
 import Dict exposing (Dict)
-import Domain.Room.Type exposing (RoomData)
 import Domain.Room.Id as RoomId
+import Domain.Room.Type exposing (RoomData)
 
 
 type alias Internal =
@@ -19,10 +19,8 @@ emptyCollection =
 
 
 open : Collection -> Internal
-open rooms =
-    case rooms of
-        Internal internal ->
-            internal
+open (Internal rooms) =
+    rooms
 
 
 add : RoomData -> Collection -> Collection
