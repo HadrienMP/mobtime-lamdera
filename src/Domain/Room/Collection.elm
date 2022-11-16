@@ -1,4 +1,4 @@
-module Domain.Room.Collection exposing (Collection(..), Internal, add, emptyCollection)
+module Domain.Room.Collection exposing (Collection(..), Internal, add, empty, get)
 
 import Dict exposing (Dict)
 import Domain.Room.Id as RoomId
@@ -13,8 +13,8 @@ type Collection
     = Internal Internal
 
 
-emptyCollection : Collection
-emptyCollection =
+empty : Collection
+empty =
     Dict.empty |> Internal
 
 
@@ -24,5 +24,15 @@ open (Internal rooms) =
 
 
 add : RoomData -> Collection -> Collection
-add value =
-    open >> Dict.insert (RoomId.open value.room.id) value >> Internal
+add value (Internal collection) =
+    Internal <|
+        if Dict.member (RoomId.open value.room.id) collection then
+            collection
+
+        else
+            Dict.insert (RoomId.open value.room.id) value collection
+
+
+get : RoomId.RoomId -> Collection -> Maybe RoomData
+get id =
+    open >> Dict.get (RoomId.open id)

@@ -23,7 +23,7 @@ app =
 
 init : ( Model, Cmd BackendMsg )
 init =
-    ( Rooms.emptyCollection
+    ( Rooms.empty
     , Cmd.none
     )
 

@@ -2,4 +2,5 @@
     "files.exclude": {
         "elm-stuff": true
     },
+    "elmLS.elmTestPath": "elm-test-rs",
 }
