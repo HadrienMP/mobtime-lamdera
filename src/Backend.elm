@@ -1,8 +1,8 @@
 module Backend exposing (Model, app)
 
 import Lamdera exposing (ClientId, SessionId, sendToFrontend)
-import Mobber
-import Room
+import Domain.Mobbers as Mobbers
+import Domain.Rooms as Rooms
 import Types exposing (BackendModel, BackendMsg(..), ToBackend(..), ToFrontend(..))
 
 
@@ -27,7 +27,7 @@ app =
 
 init : ( Model, Cmd BackendMsg )
 init =
-    ( Room.emptyCollection
+    ( Rooms.emptyCollection
     , Cmd.none
     )
 
@@ -47,10 +47,10 @@ updateFromFrontend _ clientId msg model =
                 roomData =
                     { room = request.room
                     , mobbers =
-                        Mobber.emptyCollection
-                            |> Mobber.add request.mobber
+                        Mobbers.empty
+                            |> Mobbers.add request.mobber
                     }
             in
-            ( Room.add roomData model
+            ( Rooms.add roomData model
             , sendToFrontend clientId (EntryGranted roomData request.mobber)
             )

@@ -1,10 +1,8 @@
-module Mobber exposing (Collection(..), Internal, Mobber, add, emptyCollection)
+module Domain.Mobbers exposing (..)
 
 import Dict exposing (Dict)
-
-
-type alias Mobber =
-    { id : String, name : String }
+import Domain.Mobber exposing (Mobber)
+import Domain.MobberId as MobberId
 
 
 type alias Internal =
@@ -22,13 +20,13 @@ open mobbers =
             internal
 
 
-emptyCollection : Collection
-emptyCollection =
+empty : Collection
+empty =
     Dict.empty |> Internal
 
 
 add : Mobber -> Collection -> Collection
 add mobber mobbers =
     open mobbers
-        |> Dict.insert mobber.id mobber
+        |> Dict.insert (MobberId.open mobber.id) mobber
         |> Internal

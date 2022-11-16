@@ -5,6 +5,8 @@ import Frontend.UI.Form
 import Frontend.View exposing (View)
 import Lamdera exposing (sendToBackend)
 import Types exposing (ToBackend(..))
+import Domain.RoomId exposing (RoomId(..))
+import Domain.MobberId exposing (MobberId(..))
 
 
 init : ( Model, Cmd Msg )
@@ -19,8 +21,8 @@ update msg model =
             ( model
             , sendToBackend <|
                 CreateRoom
-                    { room = { id = "room", name = model.room }
-                    , mobber = { id = "toto", name = model.mobber }
+                    { room = { id = RoomId "myRoom", name = model.room }
+                    , mobber = { id = MobberId "toto", name = model.mobber }
                     }
             )
 

@@ -9,9 +9,10 @@ module Types exposing
     )
 
 import Frontend.Types
-import Room
-import Mobber exposing (Mobber)
-import Room exposing (Room)
+import Domain.Room as Room
+import Domain.Rooms as Rooms
+import Domain.Mobber exposing (Mobber)
+import Domain.Room exposing (Room)
 
 
 type alias FrontendModel =
@@ -31,7 +32,7 @@ type ToBackend
 
 
 type alias BackendModel =
-    Room.Collection
+    Rooms.Collection
 
 
 type BackendMsg

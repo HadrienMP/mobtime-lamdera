@@ -1,19 +1,8 @@
-module Room exposing (Collection(..), Internal, Room, RoomData, add, emptyCollection)
+module Domain.Rooms exposing (..)
 
 import Dict exposing (Dict)
-import Mobber
-
-
-type alias Room =
-    { name : String
-    , id : String
-    }
-
-
-type alias RoomData =
-    { room : Room
-    , mobbers : Mobber.Collection
-    }
+import Domain.Room exposing (RoomData)
+import Domain.RoomId as RoomId
 
 
 type alias Internal =
@@ -38,4 +27,4 @@ open rooms =
 
 add : RoomData -> Collection -> Collection
 add value =
-    open >> Dict.insert value.room.id value >> Internal
+    open >> Dict.insert (RoomId.open value.room.id) value >> Internal
