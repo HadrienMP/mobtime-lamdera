@@ -18,6 +18,7 @@
             elmPackages.elm-review
             elmPackages.elm-json
             elmPackages.elm-test-rs
+            elmPackages.lamdera
           ];
         };
       });
