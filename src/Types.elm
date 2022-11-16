@@ -1,7 +1,7 @@
 module Types exposing
     ( BackendModel
     , BackendMsg(..)
-    , EntryRequest
+    , CreateRequest
     , FrontendModel
     , FrontendMsg
     , ToBackend(..)
@@ -23,7 +23,7 @@ type alias FrontendMsg =
 
 
 type ToBackend
-    = CreateRoom EntryRequest
+    = CreateRoom CreateRequest
 
 
 
@@ -43,5 +43,5 @@ type ToFrontend
     | EntryGranted Room.RoomData Mobber
 
 
-type alias EntryRequest =
+type alias CreateRequest =
     { room : Room, mobber : Mobber }
