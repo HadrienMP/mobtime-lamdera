@@ -23,3 +23,4 @@ type Msg
     | UrlChanged Url
     | OutsideMsg Frontend.Pages.Outside.Types.Msg
     | InsideMsg Frontend.Pages.Inside.Types.Msg
+    | SharedMsg Frontend.Shared.Msg

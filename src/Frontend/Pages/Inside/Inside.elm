@@ -4,6 +4,7 @@ import Domain.Room.Id exposing (RoomId)
 import Frontend.Pages.Inside.Types exposing (Msg, Super(..))
 import Frontend.UI.Typography
 import Frontend.View exposing (View)
+import Frontend.Effect exposing (Effect)
 
 
 init : RoomId -> ( Super, Cmd Msg )
@@ -13,9 +14,9 @@ init roomId =
     )
 
 
-update : Msg -> Super -> ( Super, Cmd Msg )
+update : Msg -> Super -> ( Super, Effect Msg )
 update _ model =
-    ( model, Cmd.none )
+    ( model, Frontend.Effect.none )
 
 
 view : Super -> View Msg

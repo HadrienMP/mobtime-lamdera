@@ -6,9 +6,11 @@ import Element
 import Element.Background as Background
 import Element.Font as Font
 import Element.Region
+import Frontend.Effect
 import Frontend.Pages.Inside.Inside
 import Frontend.Pages.Outside.Outside
 import Frontend.Routes
+import Frontend.Shared
 import Frontend.Types exposing (Model, Msg(..), Page(..))
 import Frontend.UI.Font
 import Frontend.UI.Space
@@ -23,14 +25,17 @@ import Url
 init : Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init url key =
     let
-        ( page, command ) =
+        ( page, pageCommand ) =
             initPage url
+
+        ( shared, sharedCommand ) =
+            Frontend.Shared.init key
     in
-    ( { shared = { key = key }
+    ( { shared = shared
       , page = page
       , message = Nothing
       }
-    , command
+    , Cmd.batch [ pageCommand, sharedCommand ]
     )
 
 
@@ -66,21 +71,30 @@ update msg model =
 
         ( OutsideMsg subMsg, Outside subModel ) ->
             Frontend.Pages.Outside.Outside.update model.shared subMsg subModel
-                |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
-                |> withPage model
+                |> Tuple.mapBoth Outside (Frontend.Effect.map OutsideMsg)
+                |> applyTo model
 
         ( InsideMsg subMsg, Inside subModel ) ->
             Frontend.Pages.Inside.Inside.update subMsg subModel
-                |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
-                |> withPage model
+                |> Tuple.mapBoth Inside (Frontend.Effect.map InsideMsg)
+                |> applyTo model
 
         _ ->
             ( model, Cmd.none )
 
 
-withPage : Model -> ( Page, Cmd Msg ) -> ( Model, Cmd Msg )
-withPage model ( page, command ) =
-    ( { model | page = page }, command )
+applyTo : Model -> ( Page, Frontend.Effect.Effect Msg ) -> ( Model, Cmd Msg )
+applyTo model ( page, effect ) =
+    let
+        ( nextShared, command ) =
+            Frontend.Effect.apply model.shared SharedMsg effect
+    in
+    ( { model
+        | page = page
+        , shared = nextShared
+      }
+    , command
+    )
 
 
 updateFromBackend : ToFrontend -> Model -> ( Model, Cmd Msg )

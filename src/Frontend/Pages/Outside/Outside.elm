@@ -1,9 +1,12 @@
 module Frontend.Pages.Outside.Outside exposing (init, update, view)
 
+import Domain.Mobber.Id
+import Domain.Room.Id
 import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Input as Input
+import Frontend.Effect exposing (Effect)
 import Frontend.Pages.Outside.Types exposing (Model, Msg(..))
 import Frontend.Routes
 import Frontend.Shared exposing (Shared)
@@ -13,24 +16,54 @@ import Frontend.UI.Space
 import Frontend.UI.Theme
 import Frontend.UI.Typography
 import Frontend.View exposing (View)
-import Domain.Room.Id
+import Random
+import UUID
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { room = "" }, Cmd.none )
+    ( { room = ""
+      , nickname = ""
+      , mobberId = ""
+      }
+    , UUID.generator
+        |> Random.map UUID.toString
+        |> Random.generate GotMobberId
+    )
 
 
-update : Shared -> Msg -> Model -> ( Model, Cmd Msg )
+update : Shared -> Msg -> Model -> ( Model, Effect Msg )
 update shared msg model =
     case msg of
         EnterClicked ->
             ( model
-            , Frontend.Routes.push shared.key <| Frontend.Routes.Inside <| Domain.Room.Id.fromString model.room
+            , Frontend.Effect.batch
+                [ model
+                    |> toMobber
+                    |> Frontend.Shared.SetMobber
+                    |> Frontend.Effect.fromShared
+                , Domain.Room.Id.fromString model.room
+                    |> Frontend.Routes.Inside
+                    |> Frontend.Routes.push shared.key
+                    |> Frontend.Effect.fromCmd
+                ]
             )
 
         RoomNameChanged updated ->
-            ( { model | room = updated }, Cmd.none )
+            ( { model | room = updated }, Frontend.Effect.none )
+
+        NicknameChanged updated ->
+            ( { model | nickname = updated }, Frontend.Effect.none )
+
+        GotMobberId id ->
+            ( { model | mobberId = id }, Frontend.Effect.none )
+
+
+toMobber : Model -> { id : Domain.Mobber.Id.MobberId, name : String }
+toMobber model =
+    { id = Domain.Mobber.Id.MobberId model.mobberId
+    , name = model.nickname
+    }
 
 
 view : Model -> View Msg
@@ -54,6 +87,11 @@ view model =
                     { label = "Room"
                     , text = model.room
                     , onChange = RoomNameChanged
+                    }
+                , Frontend.UI.Input.text
+                    { label = "Nickname"
+                    , text = model.nickname
+                    , onChange = NicknameChanged
                     }
                 ]
             , Input.button
