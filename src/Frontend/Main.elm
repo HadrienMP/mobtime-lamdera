@@ -25,30 +25,36 @@ import Url
 init : Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init url key =
     let
-        ( page, pageCommand ) =
-            initPage url
-
         ( shared, sharedCommand ) =
             Frontend.Shared.init key
+
+        ( page, pageEffect ) =
+            initPage shared url
+
+        ( nextShared, pageCmd ) =
+            applyEffect shared pageEffect
+
+        model =
+            { shared = nextShared
+            , page = page
+            , message = Nothing
+            }
     in
-    ( { shared = shared
-      , page = page
-      , message = Nothing
-      }
-    , Cmd.batch [ pageCommand, sharedCommand ]
+    ( model
+    , Cmd.batch [ pageCmd, sharedCommand ]
     )
 
 
-initPage : Url.Url -> ( Page, Cmd Msg )
-initPage url =
+initPage : Frontend.Shared.Shared -> Url.Url -> ( Page, Frontend.Effect.Effect Msg )
+initPage shared url =
     case Frontend.Routes.parse url of
         Frontend.Routes.Outside ->
             Frontend.Pages.Outside.Outside.init
-                |> Tuple.mapBoth Outside (Cmd.map OutsideMsg)
+                |> Tuple.mapBoth Outside (Frontend.Effect.map OutsideMsg)
 
         Frontend.Routes.Inside roomId ->
-            Frontend.Pages.Inside.Inside.init roomId
-                |> Tuple.mapBoth Inside (Cmd.map InsideMsg)
+            Frontend.Pages.Inside.Inside.init shared roomId
+                |> Tuple.mapBoth Inside (Frontend.Effect.map InsideMsg)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -67,27 +73,27 @@ update msg model =
                     )
 
         ( UrlChanged url, _ ) ->
-            initPage url |> Tuple.mapFirst (\page -> { model | page = page })
+            initPage model.shared url |> toModelCmd model
 
         ( OutsideMsg subMsg, Outside subModel ) ->
             Frontend.Pages.Outside.Outside.update model.shared subMsg subModel
                 |> Tuple.mapBoth Outside (Frontend.Effect.map OutsideMsg)
-                |> applyTo model
+                |> toModelCmd model
 
         ( InsideMsg subMsg, Inside subModel ) ->
             Frontend.Pages.Inside.Inside.update subMsg subModel
                 |> Tuple.mapBoth Inside (Frontend.Effect.map InsideMsg)
-                |> applyTo model
+                |> toModelCmd model
 
         _ ->
             ( model, Cmd.none )
 
 
-applyTo : Model -> ( Page, Frontend.Effect.Effect Msg ) -> ( Model, Cmd Msg )
-applyTo model ( page, effect ) =
+toModelCmd : Model -> ( Page, Frontend.Effect.Effect Msg ) -> ( Model, Cmd Msg )
+toModelCmd model ( page, effect ) =
     let
         ( nextShared, command ) =
-            Frontend.Effect.apply model.shared SharedMsg effect
+            applyEffect model.shared effect
     in
     ( { model
         | page = page
@@ -95,6 +101,11 @@ applyTo model ( page, effect ) =
       }
     , command
     )
+
+
+applyEffect : Frontend.Shared.Shared -> Frontend.Effect.Effect Msg -> ( Frontend.Shared.Shared, Cmd Msg )
+applyEffect shared effect =
+    Frontend.Effect.apply shared SharedMsg effect
 
 
 updateFromBackend : ToFrontend -> Model -> ( Model, Cmd Msg )

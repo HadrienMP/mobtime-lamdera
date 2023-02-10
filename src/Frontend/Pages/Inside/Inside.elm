@@ -1,16 +1,17 @@
 module Frontend.Pages.Inside.Inside exposing (init, update, view)
 
 import Domain.Room.Id exposing (RoomId)
+import Frontend.Effect exposing (Effect)
 import Frontend.Pages.Inside.Types exposing (Msg, Super(..))
+import Frontend.Shared exposing (Shared)
 import Frontend.UI.Typography
 import Frontend.View exposing (View)
-import Frontend.Effect exposing (Effect)
 
 
-init : RoomId -> ( Super, Cmd Msg )
-init roomId =
+init : Shared -> RoomId -> ( Super, Effect Msg )
+init _ roomId =
     ( Setup { roomId = roomId, nickname = "", ready = Nothing }
-    , Cmd.none
+    , Frontend.Effect.none
     )
 
 

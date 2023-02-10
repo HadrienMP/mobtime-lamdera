@@ -11,7 +11,6 @@ type Route
     = Inside RoomId
     | Outside
 
-
 parse : Url -> Route
 parse url =
     Url.Parser.parse parser url

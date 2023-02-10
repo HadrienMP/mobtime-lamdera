@@ -20,7 +20,8 @@ import Random
 import UUID
 
 
-init : ( Model, Cmd Msg )
+
+init : ( Model, Effect Msg )
 init =
     ( { room = ""
       , nickname = ""
@@ -29,6 +30,7 @@ init =
     , UUID.generator
         |> Random.map UUID.toString
         |> Random.generate GotMobberId
+        |> Frontend.Effect.fromCmd
     )
 
 
