@@ -1,30 +1,19 @@
-module Frontend.UI.Button exposing (Button(..), TextButton, button)
+module Frontend.UI.Button exposing (primaryStyle)
 
-import Html.Styled as Html
-import Html.Styled.Events as Events
-
-
-type Button msg
-    = Text (TextButton msg)
-
-
-type alias TextButton msg =
-    { onClick : Maybe msg, label : String }
+import Element
+import Element.Background as Background
+import Element.Border as Border
+import Element.Font as Font
+import Frontend.UI.Space
+import Frontend.UI.Theme
 
 
-button : Button msg -> Html.Html msg
-button description =
-    case description of
-        Text textButton ->
-            text textButton
-
-
-text : TextButton msg -> Html.Html msg
-text description =
-    Html.button
-        (description.onClick
-            |> Maybe.map Events.onClick
-            |> Maybe.map List.singleton
-            |> Maybe.withDefault []
-        )
-        [ Html.text description.label ]
+primaryStyle : List (Element.Attribute msg)
+primaryStyle =
+    [ Border.rounded 4
+    , Border.width 0
+    , Background.color Frontend.UI.Theme.buttonPrimaryBackground
+    , Font.color Frontend.UI.Theme.buttonPrimaryForeground
+    , Element.paddingXY Frontend.UI.Space.m Frontend.UI.Space.s
+    , Font.center
+    ]

@@ -3,7 +3,17 @@
   "automatically created by": "elm-review suppress",
   "learn more": "elm-review suppress --help",
   "suppressions": [
+    { "count": 7, "filePath": "src/Frontend/UI/Sides.elm" },
+    { "count": 2, "filePath": "src/Frontend/UI/Input.elm" },
+    { "count": 2, "filePath": "src/Frontend/UI/Space.elm" },
+    { "count": 2, "filePath": "src/Frontend/UI/Widgets.elm" },
     { "count": 1, "filePath": "src/Env.elm" },
-    { "count": 1, "filePath": "src/Frontend/Routes.elm" }
+    { "count": 1, "filePath": "src/Frontend/Lib/BasicExtra.elm" },
+    { "count": 1, "filePath": "src/Frontend/Pages/Inside/Inside.elm" },
+    { "count": 1, "filePath": "src/Frontend/Routes.elm" },
+    { "count": 1, "filePath": "src/Frontend/UI/Palettes/Flat.elm" },
+    { "count": 1, "filePath": "src/Frontend/UI/Tape.elm" },
+    { "count": 1, "filePath": "src/Frontend/UI/Theme.elm" },
+    { "count": 1, "filePath": "src/Frontend/UI/Typography.elm" }
   ]
 }

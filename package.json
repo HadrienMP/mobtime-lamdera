@@ -1,0 +1,12 @@
+{
+  "name": "mobtime-lamdera",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/HadrienMP/mobtime-lamdera.git",
+  "author": "hadrienmp <github@hadrienmp.fr>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.30.0"
+  },
+  "scripts": {}
+}

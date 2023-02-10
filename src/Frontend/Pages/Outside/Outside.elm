@@ -1,54 +1,68 @@
 module Frontend.Pages.Outside.Outside exposing (init, update, view)
 
+import Element
+import Element.Background as Background
+import Element.Border as Border
+import Element.Input as Input
 import Frontend.Pages.Outside.Types exposing (Model, Msg(..))
-import Frontend.UI.Form
+import Frontend.Routes
+import Frontend.Shared exposing (Shared)
+import Frontend.UI.Button
+import Frontend.UI.Input
+import Frontend.UI.Space
+import Frontend.UI.Theme
+import Frontend.UI.Typography
 import Frontend.View exposing (View)
-import Lamdera exposing (sendToBackend)
-import Types exposing (ToBackend(..))
-import Domain.Room.Id exposing (RoomId(..))
-import Domain.Mobber.Id exposing (MobberId(..))
+import Domain.Room.Id
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { room = "", mobber = "" }, Cmd.none )
+    ( { room = "" }, Cmd.none )
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Shared -> Msg -> Model -> ( Model, Cmd Msg )
+update shared msg model =
     case msg of
         EnterClicked ->
             ( model
-            , sendToBackend <|
-                CreateRoom
-                    { room = { id = RoomId "myRoom", name = model.room }
-                    , mobber = { id = MobberId "toto", name = model.mobber }
-                    }
+            , Frontend.Routes.push shared.key <| Frontend.Routes.Inside <| Domain.Room.Id.fromString model.room
             )
 
         RoomNameChanged updated ->
             ( { model | room = updated }, Cmd.none )
 
-        MobberNameChanged updated ->
-            ( { model | mobber = updated }, Cmd.none )
-
 
 view : Model -> View Msg
 view model =
-    { title = Just "Welcome"
+    { title = Nothing
     , body =
-        Frontend.UI.Form.form { onSubmit = Just EnterClicked, cancel = Nothing, submit = Just "Enter" }
-            [ Frontend.UI.Form.text
-                { onInput = RoomNameChanged
-                , label = "Room"
-                , name = "room"
-                , value = model.room
-                }
-            , Frontend.UI.Form.text
-                { onInput = MobberNameChanged
-                , label = "Nickname"
-                , name = "mobber"
-                , value = model.mobber
+        Element.column
+            [ Element.spacing Frontend.UI.Space.l
+            , Element.centerX
+            , Element.centerY
+            , Border.color Frontend.UI.Theme.border
+            , Border.width 1
+            , Border.rounded 5
+            , Background.color Frontend.UI.Theme.surface
+            , Element.padding Frontend.UI.Space.l
+            ]
+            [ Frontend.UI.Typography.h1 [ Element.centerX ]
+                "Login"
+            , Element.column [ Element.width Element.fill ]
+                [ Frontend.UI.Input.text
+                    { label = "Room"
+                    , text = model.room
+                    , onChange = RoomNameChanged
+                    }
+                ]
+            , Input.button
+                (Frontend.UI.Button.primaryStyle
+                    ++ [ Element.width Element.fill
+                       ]
+                )
+                { onPress = Just EnterClicked
+                , label = Element.text "Enter"
                 }
             ]
     }

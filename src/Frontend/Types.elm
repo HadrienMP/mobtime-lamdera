@@ -2,18 +2,19 @@ module Frontend.Types exposing (Model, Msg(..), Page(..))
 
 import Frontend.Pages.Inside.Types
 import Frontend.Pages.Outside.Types
-import Lamdera exposing (Key, Url, UrlRequest)
+import Lamdera exposing (Url, UrlRequest)
+import Frontend.Shared exposing (Shared)
 
 
 type Page
     = Outside Frontend.Pages.Outside.Types.Model
-    | Inside Frontend.Pages.Inside.Types.Model
+    | Inside Frontend.Pages.Inside.Types.Super
 
 
 type alias Model =
-    { key : Key
+    { shared: Shared
+    , page: Page
     , message : Maybe String
-    , page : Page
     }
 
 
